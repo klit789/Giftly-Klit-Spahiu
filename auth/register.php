@@ -35,16 +35,38 @@ if (is_post()) {
     }
 }
 $pageTitle='Join the good closet club'; require __DIR__ . '/../includes/header.php'; ?>
-<section class="auth-page"><div class="auth-card"><a class="brand" href="<?= e(url()) ?>"><span class="brand-mark">G</span><span>giftly</span></a><h1>Let’s do some good.</h1><p>Create your free account and connect useful clothes with a useful next chapter.</p>
-<?php if ($errors): ?><div class="flash flash-error" style="margin-top:15px"><span><?= e(implode(' ', $errors)) ?></span></div><?php endif; ?>
-<form method="post" novalidate data-loading><?= csrf_field() ?>
-  <div class="field"><label for="name">Your name</label><input class="input" id="name" name="name" maxlength="100" required value="<?= e($old['name'] ?? '') ?>"></div>
-  <div class="field"><label for="email">Email address</label><input class="input" type="email" id="email" name="email" maxlength="190" required value="<?= e($old['email'] ?? '') ?>"></div>
-  <div class="field"><label for="password">Password</label><input class="input" type="password" id="password" name="password" minlength="8" required><p class="help">At least 8 characters—make it memorable but hard to guess.</p></div>
-  <div class="field"><label>I’m joining as</label><div class="role-choice"><label><input type="radio" name="role" value="donor" <?= ($old['role'] ?? '')==='donor'?'checked':'' ?>><span>♥ A clothing donor</span></label><label><input type="radio" name="role" value="charity" <?= ($old['role'] ?? '')==='charity'?'checked':'' ?>><span>⌂ A charity team</span></label></div></div>
-  <div class="field" id="organisation-field"><label for="organization_name">Organisation name <small>(charities only)</small></label><input class="input" id="organization_name" name="organization_name" maxlength="150" value="<?= e($old['organization_name'] ?? '') ?>"></div>
-  <div class="field hidden" id="charity-country-field"><label for="country_code">Country <small>(charities only)</small></label><select class="select" id="country_code" name="country_code"><option value="">Choose your country</option><?php foreach ($countries as $code => $countryName): ?><option value="<?= e($code) ?>" <?= ($old['country_code'] ?? '') === $code ? 'selected' : '' ?>><?= e($countryName) ?></option><?php endforeach; ?></select><p class="help">This confirmed country is used for Giftly’s community map.</p></div>
-  <button class="button" type="submit">Create my account →</button>
-</form><p class="auth-alt">Already part of Giftly? <a class="text-link" href="<?= e(url('auth/login.php')) ?>">Sign in</a></p></div></section>
+<section class="auth-page auth-page-split">
+  <aside class="auth-story">
+    <a class="brand auth-brand" href="<?= e(url()) ?>"><span class="brand-mark">G</span><span>giftly</span></a>
+    <div class="auth-story-copy">
+      <span class="auth-story-kicker">Good clothes, new chapters</span>
+      <h1>Create a little more <span>good</span> in your community.</h1>
+      <p>Join as a donor or charity and make every useful item easier to share.</p>
+    </div>
+    <blockquote>
+      <p>“The smallest act of giving can change someone’s whole day.”</p>
+      <cite>Giftly community</cite>
+    </blockquote>
+  </aside>
+  <div class="auth-form-side auth-form-side-register">
+    <div class="auth-form-wrap">
+      <span class="auth-mobile-brand"><span>G</span> giftly</span>
+      <h2>Create your account</h2>
+      <p class="auth-form-lead">A few details and you’re ready to make an impact.</p>
+      <?php if ($errors): ?><div class="flash flash-error"><span><?= e(implode(' ', $errors)) ?></span></div><?php endif; ?>
+      <form method="post" novalidate data-loading>
+        <?= csrf_field() ?>
+        <div class="field"><label for="name">Your name</label><input class="input" id="name" name="name" placeholder="Full name" maxlength="100" required value="<?= e($old['name'] ?? '') ?>"></div>
+        <div class="field"><label for="email">Email address</label><input class="input" type="email" id="email" name="email" placeholder="you@example.com" maxlength="190" required value="<?= e($old['email'] ?? '') ?>"></div>
+        <div class="field"><label for="password">Password</label><input class="input" type="password" id="password" name="password" placeholder="At least 8 characters" minlength="8" required></div>
+        <div class="field"><label>I’m joining as</label><div class="role-choice"><label><input type="radio" name="role" value="donor" <?= ($old['role'] ?? '')==='donor'?'checked':'' ?>><span>♥ A clothing donor</span></label><label><input type="radio" name="role" value="charity" <?= ($old['role'] ?? '')==='charity'?'checked':'' ?>><span>⌂ A charity team</span></label></div></div>
+        <div class="field" id="organisation-field"><label for="organization_name">Organisation name <small>(charities only)</small></label><input class="input" id="organization_name" name="organization_name" maxlength="150" value="<?= e($old['organization_name'] ?? '') ?>"></div>
+        <div class="field hidden" id="charity-country-field"><label for="country_code">Country <small>(charities only)</small></label><select class="select" id="country_code" name="country_code"><option value="">Choose your country</option><?php foreach ($countries as $code => $countryName): ?><option value="<?= e($code) ?>" <?= ($old['country_code'] ?? '') === $code ? 'selected' : '' ?>><?= e($countryName) ?></option><?php endforeach; ?></select></div>
+        <button class="button auth-submit" type="submit">Create account</button>
+      </form>
+      <p class="auth-alt">Already part of Giftly? <a class="text-link" href="<?= e(url('auth/login.php')) ?>">Sign in</a></p>
+    </div>
+  </div>
+</section>
 <script>document.addEventListener('DOMContentLoaded',()=>{const f=document.getElementById('organisation-field'),cf=document.getElementById('charity-country-field'),country=document.getElementById('country_code'),r=document.querySelectorAll('input[name=role]');const t=()=>{const selected=document.querySelector('input[name=role]:checked'),charity=selected&&selected.value==='charity';f.classList.toggle('hidden',!charity);cf.classList.toggle('hidden',!charity);country.required=Boolean(charity)};r.forEach(x=>x.onchange=t);t()})</script>
 <?php require __DIR__ . '/../includes/footer.php'; ?>

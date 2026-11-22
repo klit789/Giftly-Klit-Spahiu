@@ -17,9 +17,9 @@ $unreadCount = $user ? unread_notifications(db(), (int)$user['id']) : 0;
     <title><?= e($pageTitle) ?> · <?= APP_NAME ?></title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>tailwind.config={theme:{extend:{colors:{coral:'#F04427',snow:'#FAFAF7',ink:'#20201E',sun:'#FFD928'},fontFamily:{display:['Arial Black','Arial','sans-serif'],sans:['Inter','Arial','sans-serif']}}}}</script>
-    <link rel="stylesheet" href="<?= e(url('assets/css/style.css')) ?>">
-    <link rel="stylesheet" href="<?= e(url('assets/css/images.css')) ?>">
-    <link rel="stylesheet" href="<?= e(url('assets/css/upgrade.css')) ?>">
+    <link rel="stylesheet" href="<?= e(url('assets/css/style.css')) ?>?v=<?= @filemtime(__DIR__ . '/../assets/css/style.css') ?: '1' ?>">
+    <link rel="stylesheet" href="<?= e(url('assets/css/images.css')) ?>?v=<?= @filemtime(__DIR__ . '/../assets/css/images.css') ?: '1' ?>">
+    <link rel="stylesheet" href="<?= e(url('assets/css/upgrade.css')) ?>?v=<?= @filemtime(__DIR__ . '/../assets/css/upgrade.css') ?: '1' ?>">
     <script>document.documentElement.dataset.theme=localStorage.getItem('giftly-theme')||'light';</script>
 </head>
 <body class="bg-snow text-ink">
@@ -33,6 +33,8 @@ $unreadCount = $user ? unread_notifications(db(), (int)$user['id']) : 0;
                 <a class="<?= $isActive('/public/urgent.php') ?>" href="<?= e(url('public/urgent.php')) ?>">Urgent needs</a>
                 <a class="<?= $isActive('/public/challenges.php') ?>" href="<?= e(url('public/challenges.php')) ?>">Challenges</a>
                 <a class="<?= $isActive('/public/impact.php') ?>" href="<?= e(url('public/impact.php')) ?>">Impact</a>
+                <a class="<?= $isActive('/public/stories.php') ?>" href="<?= e(url('public/stories.php')) ?>">Stories</a>
+                <a class="<?= $isActive('/public/gallery.php') ?>" href="<?= e(url('public/gallery.php')) ?>">Gallery</a>
                 <button class="theme-toggle" type="button" data-theme-toggle aria-label="Toggle dark mode">◐</button>
                 <a href="<?= e(url('auth/login.php')) ?>">Sign in</a>
                 <a class="button button-small" href="<?= e(url('auth/register.php')) ?>">Join Giftly</a>
@@ -52,12 +54,19 @@ $unreadCount = $user ? unread_notifications(db(), (int)$user['id']) : 0;
                     <a class="<?= $isActive('/charity/donations.php') ?>" href="<?=e(url('charity/donations.php'))?>">Incoming Pledges</a>
                     <a class="<?= $isActive('/charity/appointments.php') ?>" href="<?=e(url('charity/appointments.php'))?>">Appointments</a>
                     <a class="<?= $isActive('/charity/insights.php') ?>" href="<?=e(url('charity/insights.php'))?>">Charity Insights</a>
+                    <a class="<?= $isActive('/charity/stories.php') ?>" href="<?=e(url('charity/stories.php'))?>">My Stories</a>
+                    <a class="<?= $isActive('/charity/gallery.php') ?>" href="<?=e(url('charity/gallery.php'))?>">Manage Gallery</a>
                 <?php else: ?>
                     <a class="<?= $isActive('/admin/users.php') ?>" href="<?=e(url('admin/users.php'))?>">Users & Charities</a>
                     <a class="<?= $isActive('/admin/requests.php') ?>" href="<?=e(url('admin/requests.php'))?>">Requests</a>
                     <a class="<?= $isActive('/admin/donations.php') ?>" href="<?=e(url('admin/donations.php'))?>">Donations</a>
                     <a class="<?= $isActive('/admin/insights.php') ?>" href="<?=e(url('admin/insights.php'))?>">GIFTLY INSIGHTS & Reports</a>
+                    <a class="<?= $isActive('/admin/stories.php') ?>" href="<?=e(url('admin/stories.php'))?>">Story Moderation</a>
+                    <a class="<?= $isActive('/admin/gallery.php') ?>" href="<?=e(url('admin/gallery.php'))?>">Gallery Moderation</a>
+                    <a class="<?= $isActive('/admin/consent.php') ?>" href="<?=e(url('admin/consent.php'))?>">Consent Management</a>
                 <?php endif; ?>
+                <a class="<?= $isActive('/public/stories.php') ?>" href="<?=e(url('public/stories.php'))?>">Stories of Change</a>
+                <a class="<?= $isActive('/public/gallery.php') ?>" href="<?=e(url('public/gallery.php'))?>">Happy People Gallery</a>
                 <a class="notification-link notification-icon <?= $isActive('/notifications.php') ?>" href="<?=e(url('notifications.php'))?>" aria-label="<?=e($unreadCount ? 'Notifications, '.$unreadCount.' unread' : 'Notifications')?>" title="Notifications">
                     <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>
                     <?php if ($unreadCount): ?><b aria-hidden="true"><?= $unreadCount > 9 ? '9+' : $unreadCount ?></b><?php endif; ?>

@@ -7,8 +7,9 @@ Giftly connects clothing donors with charities asking for specific sizes, catego
 1. Place this folder inside `C:\xampp\htdocs\` (it is already set up there in this workspace).
 2. Start **Apache** and **MySQL** from the XAMPP Control Panel.
 3. For a fresh local install only, open [http://localhost/phpmyadmin](http://localhost/phpmyadmin), choose **Import**, and import `database/database.sql`.
-4. Import the SQL files in `database/migrations/` in filename order: `20261121_giftly_ecosystem.sql`, `20261122_wardrobe_assistant.sql`, then `20261123_charity_country.sql`. These migrations add platform features without dropping existing data.
-5. Open [http://localhost/local%20gift%20voucher/](http://localhost/local%20gift%20voucher/) in your browser.
+4. Import the SQL files in `database/migrations/` in filename order: `20261121_giftly_ecosystem.sql`, `20261122_wardrobe_assistant.sql`, `20261123_charity_country.sql`, `20261124_stories_gallery.sql`, then `20261124_stories_gallery_illustrations.sql`. These migrations add platform features without dropping existing data.
+5. For the seeded demo campaigns only, optionally import `database/seeds/stories_gallery_sample_content.sql` after the migrations. It adds two transparent progress updates only when the sample campaigns still have the verified receipt totals shown in the seed, plus clearly labeled illustrative clothing-donation photos supplied for the demo. These photos are not verified Giftly recipients or outcomes. Do not import this sample content into a live charity database.
+6. Open [http://localhost/local%20gift%20voucher/](http://localhost/local%20gift%20voucher/) in your browser.
 
 **Important:** `database/database.sql` drops and recreates core tables for demo setup. Do not re-import it into a database containing data you want to keep; apply only the additive migrations to an existing Giftly database.
 
@@ -48,6 +49,8 @@ All seeded accounts use password: `password`
 - Donor digital wardrobe with item management, live request matches, quantity reservations, cancellation release, and receipt-confirmed donation history.
 - GIFTLY Assistant with database-backed active-request search, contextual help, conversation history, server-side rate limiting, and optional Gemini-generated replies. Database matching and request links remain grounded in Giftly records.
 - GIFTLY INSIGHTS dashboards with role-scoped MySQL analytics, date/category/season filters, interactive charts, CSV export, and print reports.
+- Stories of Change with charity-owned drafts and publishing, campaign-linked verified delivery counts, featured and additional photos, and responsive public story pages.
+- The Happy People Gallery with charity submissions, required informed-consent and guardian confirmations for children, admin approval, searchable category filters, lightbox navigation, and photo-removal requests.
 - PDO prepared statements, output escaping, CSRF checks, server-side validation, session ID regeneration, role ownership checks, and transactional state changes.
 
 ## Project map

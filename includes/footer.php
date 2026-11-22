@@ -24,8 +24,8 @@ $assistantGeminiEnabled = is_string($assistantApiKey) && trim($assistantApiKey) 
     <p class="assistant-disclaimer"><?= $assistantGeminiEnabled ? 'AI replies use Google Gemini. Messages you send are shared with Google.' : 'Local rule-based help. Gemini is not configured.' ?></p>
   </section>
 </div>
-<script src="<?= e(url('assets/js/app.js')) ?>"></script>
-<script src="<?= e(url('assets/js/upgrade.js')) ?>"></script>
-<script src="<?= e(url('assets/js/assistant.js')) ?>"></script>
+<script src="<?= e(url('assets/js/app.js')) ?>?v=<?= @filemtime(__DIR__ . '/../assets/js/app.js') ?: '1' ?>"></script>
+<script src="<?= e(url('assets/js/upgrade.js')) ?>?v=<?= @filemtime(__DIR__ . '/../assets/js/upgrade.js') ?: '1' ?>"></script>
+<script src="<?= e(url('assets/js/assistant.js')) ?>?v=<?= @filemtime(__DIR__ . '/../assets/js/assistant.js') ?: '1' ?>"></script>
 </body>
 </html>

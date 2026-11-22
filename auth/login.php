@@ -9,5 +9,34 @@ if (is_post()) { verify_csrf(); $email=trim(strtolower($_POST['email'] ?? '')); 
     $error='That email or password did not match an active account.';
 }
 $pageTitle='Welcome back';require __DIR__ . '/../includes/header.php'; ?>
-<section class="auth-page"><div class="auth-card"><a class="brand" href="<?= e(url()) ?>"><span class="brand-mark">G</span><span>giftly</span></a><h1>Welcome back.</h1><p>Your next act of kindness is a few clicks away.</p><?php if($error): ?><div class="flash flash-error" style="margin-top:15px"><span><?= e($error) ?></span></div><?php endif; ?><form method="post" data-loading><?= csrf_field() ?><div class="field"><label for="email">Email address</label><input class="input" type="email" id="email" name="email" required autocomplete="email" value="<?= e($_POST['email'] ?? '') ?>"></div><div class="field"><label for="password">Password</label><input class="input" type="password" id="password" name="password" required autocomplete="current-password"></div><button class="button" type="submit">Sign in →</button></form><p class="auth-alt">New to Giftly? <a class="text-link" href="<?= e(url('auth/register.php')) ?>">Create an account</a></p></div></section>
+<section class="auth-page auth-page-split">
+  <aside class="auth-story">
+    <a class="brand auth-brand" href="<?= e(url()) ?>"><span class="brand-mark">G</span><span>giftly</span></a>
+    <div class="auth-story-copy">
+      <span class="auth-story-kicker">A warm place for useful things</span>
+      <h1>Start your day with <span>everything</span> in one place.</h1>
+      <p>Manage requests, pledges and appointments while helping good clothes find their next chapter.</p>
+    </div>
+    <blockquote>
+      <p>“Every item has a story, and every donation makes the next one possible.”</p>
+      <cite>Giftly community</cite>
+    </blockquote>
+  </aside>
+  <div class="auth-form-side">
+    <div class="auth-form-wrap">
+      <span class="auth-mobile-brand"><span>G</span> giftly</span>
+      <h2>Welcome back</h2>
+      <p class="auth-form-lead">Sign in to continue to your Giftly account.</p>
+      <?php if($error): ?><div class="flash flash-error"><span><?= e($error) ?></span></div><?php endif; ?>
+      <form method="post" data-loading>
+        <?= csrf_field() ?>
+        <div class="field"><label for="email">Email address</label><input class="input" type="email" id="email" name="email" placeholder="you@company.com" required autocomplete="email" value="<?= e($_POST['email'] ?? '') ?>"></div>
+        <div class="field"><div class="auth-label-row"><label for="password">Password</label><span class="auth-forgot">Forgot password?</span></div><input class="input" type="password" id="password" name="password" placeholder="••••••••" required autocomplete="current-password"></div>
+        <label class="auth-remember"><input type="checkbox" name="remember"> <span>Remember me</span></label>
+        <button class="button auth-submit" type="submit">Sign in</button>
+      </form>
+      <p class="auth-alt">New here? <a class="text-link" href="<?= e(url('auth/register.php')) ?>">Create an account</a></p>
+    </div>
+  </div>
+</section>
 <?php require __DIR__ . '/../includes/footer.php'; ?>
